@@ -89,10 +89,9 @@ class Hangman:
 
     def game_loop(self) -> bool:
         """Main game loop. Returns True if user guessed the word, False otherwise."""
+        self.print_game_board()
         while len(self.failed_letters) < 6 and "·" in self.word_state:
-            self.print_game_board()
             guess = input("Guess a letter: ")
-            # os.system("cls")
             if self.is_valid_guess(guess):
                 guess = guess.lower()
                 if guess in self.target_word:
@@ -100,9 +99,15 @@ class Hangman:
                     self.update_word_state()
                 else:
                     self.failed_letters.append(guess)
+                os.system("cls")  # Clear the screen after each valid guess
                 self.print_game_board()
             else:
                 print("Invalid guess. Try again.")
+
+        if "·" not in self.word_state:
+            print("Congratulations! You won!")
+        else:
+            print(f"You lost. The word was: '{self.target_word}'.")
 
         return "·" not in self.word_state
 
@@ -121,11 +126,6 @@ class Hangman:
                 self.update_word_state()
                 victory = self.game_loop()
                 score += victory
-                print(
-                    "You won!"
-                    if victory
-                    else "The word was: '" + self.target_word + "'."
-                )
                 self.store_round_stats(
                     game_id,
                     self.target_word,
