@@ -4,6 +4,9 @@ import os
 import uuid
 from datetime import datetime
 
+games_csv = "games.csv"
+rounds_in_games_csv = "rounds_in_games.csv"
+
 
 class Hangman:
     """A class to represent a game of Hangman."""
@@ -140,7 +143,7 @@ class Hangman:
         self, game_id, word, username, round_id, user_tries, victory
     ) -> None:
         """Stores the stats in rounds_in_games.csv"""
-        if not os.path.exists("rounds_in_games.csv"):
+        if not os.path.exists(rounds_in_games_csv):
             df = pd.DataFrame(
                 columns=[
                     "game_id",
@@ -151,7 +154,7 @@ class Hangman:
                     "victory",
                 ]
             )
-            df.to_csv("rounds_in_games.csv", index=False)
+            df.to_csv(rounds_in_games_csv, index=False)
         data = {
             "game_id": game_id,
             "word": word,
@@ -162,21 +165,21 @@ class Hangman:
         }
         df = pd.DataFrame([data])
         df.to_csv(
-            "rounds_in_games.csv",
+            rounds_in_games_csv,
             mode="a",
             index=False,
-            header=not pd.read_csv("rounds_in_games.csv").empty,
+            header=not pd.read_csv(rounds_in_games_csv).empty,
         )
 
     def store_game_stats(
         self, game_id, username, start_date, end_date, final_score
     ) -> None:
         """Stores the stats in games.csv"""
-        if not os.path.exists("games.csv"):
+        if not os.path.exists(games_csv):
             df = pd.DataFrame(
                 columns=["game_id", "username", "start_date", "end_date", "final_score"]
             )
-            df.to_csv("games.csv", index=False)
+            df.to_csv(games_csv, index=False)
         data = {
             "game_id": game_id,
             "username": username,
@@ -186,8 +189,8 @@ class Hangman:
         }
         df = pd.DataFrame([data])
         df.to_csv(
-            "games.csv",
+            games_csv,
             mode="a",
             index=False,
-            header=not pd.read_csv("games.csv").empty,
+            header=not pd.read_csv(games_csv).empty,
         )
