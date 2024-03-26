@@ -74,13 +74,22 @@ class Hangman:
             self.word_state += letter if letter in self.guessed_letters else "_"
         self.word_state += " "
 
+    def is_valid_guess(self, guess: str) -> bool:
+        """Returns True if the guess is a new, single letter."""
+        if len(guess) != 1:
+            return False
+        if not guess.isalpha():
+            return False
+        return guess.lower() not in self.guessed_letters + self.failed_letters
+
     def game_loop(self) -> bool:
         """Main game loop. Returns True if user guessed the word, False otherwise."""
         while len(self.failed_letters) < 6 and "_" in self.word_state:
             os.system("cls")
             self.print_game_board()
-            guess = input("Guess a letter: ").lower()
-            if guess not in self.guessed_letters + self.failed_letters:
+            guess = input("Guess a letter: ")
+            if self.is_valid_guess(guess):
+                guess = guess.lower()
                 if guess in self.target_word:
                     self.guessed_letters.append(guess)
                     self.update_word_state()
