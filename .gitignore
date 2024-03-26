@@ -128,3 +128,7 @@ dmypy.json
 Include/
 Scripts/
 pyvenv.cfg
+
+# stats
+games.csv
+rounds_in_games.csv
