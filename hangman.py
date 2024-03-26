@@ -168,7 +168,9 @@ class Hangman:
             rounds_in_games_csv,
             mode="a",
             index=False,
-            header=not pd.read_csv(rounds_in_games_csv).empty,
+            header=not os.path.exists(
+                rounds_in_games_csv
+            ),  # Check if header already exists
         )
 
     def store_game_stats(
@@ -189,8 +191,5 @@ class Hangman:
         }
         df = pd.DataFrame([data])
         df.to_csv(
-            games_csv,
-            mode="a",
-            index=False,
-            header=not pd.read_csv(games_csv).empty,
+            games_csv, mode="a", index=False, header=not os.path.exists(games_csv)
         )
