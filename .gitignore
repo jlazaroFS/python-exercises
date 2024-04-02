@@ -130,6 +130,6 @@ Scripts/
 pyvenv.cfg
 
 # stats
-games.csv
-rounds_in_games.csv
-stats.ipynb
+#games.csv
+#rounds_in_games.csv
+#stats.ipynb
