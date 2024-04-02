@@ -131,7 +131,7 @@ class Hangman:
                     self.target_word,
                     username,
                     round_id,
-                    len(self.failed_letters),
+                    len(self.failed_letters) + len(self.guessed_letters),
                     victory,
                 )
                 round_id += 1
